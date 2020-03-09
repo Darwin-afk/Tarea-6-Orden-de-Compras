@@ -104,7 +104,9 @@
         <DataGrid x:Name="DetalleDataGrid" Grid.Row="16" Grid.Column="1" Grid.ColumnSpan="5">
             <DataGrid.ItemsSource>
                 <Binding Path="orden.Detalle" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-
+                    <Binding.ValidationRules>
+                        <src:DetalleValidacion x:Name="detalleValidacion" ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
                 </Binding>
             </DataGrid.ItemsSource>
         </DataGrid>
@@ -126,6 +128,7 @@
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding ElementName=FechaDatePicker, Path=(Validation.HasError)}" Value="false" />
                                 <Condition Binding="{Binding ElementName=ClienteIdTextBox, Path=(Validation.HasError)}" Value="false" />
+                                <Condition Binding="{Binding ElementName=DetalleDataGrid, Path=(Validation.HasError)}" Value="false" />
                             </MultiDataTrigger.Conditions>
                             <Setter Property="IsEnabled" Value="true" />
                         </MultiDataTrigger>
@@ -209,6 +212,13 @@
                     <MultiBinding StringFormat="{}{0} - {1}">
                         <Binding ElementName="CantidadTextBlock" Path="Text"/>
                         <Binding ElementName="CantidadTextBox" Path="(Validation.Errors)[0].ErrorContent"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock Visibility="{Binding ElementName=DetalleDataGrid, Path=(Validation.Errors), Converter={StaticResource ToVisibility}}">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="Productos - {0}">
+                        <Binding ElementName="DetalleDataGrid" Path="(Validation.Errors)[0].ErrorContent"/>
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
