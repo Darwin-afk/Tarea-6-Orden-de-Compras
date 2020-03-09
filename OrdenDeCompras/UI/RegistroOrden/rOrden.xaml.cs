@@ -122,11 +122,6 @@ namespace OrdenDeCompras.UI.RegistroOrden
         {
             reiniciaOrdenes();
             contenedor = new Contenedor();
-            /*FechaDatePicker.SelectedDate = DateTime.Now;
-            ClienteIdTextBox.Text = "0";
-            NombreTextBox.Text = string.Empty;
-            MontoTextBox.Text = "0";
-            DetalleDataGrid.ItemsSource = new List<OrdenesDetalle>();*/
 
             reCargar();
         }
